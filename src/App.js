@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
-function App() {
+
+//componets
+import FormIngreso from "./components/Ingresos/FormIngreso";
+import Header from "./components/Header";
+import LoginForm from "./components/LogIn/FormLogin";
+import HomePage from "./Pages/HomePage";
+ 
+ 
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUser: localStorage.getItem('currentUser'),
+      auth: localStorage.getItem('auth') // props
+    };
+  }
+
+
+render() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+       {/*Pattern design: Render Props */}
+      <Header currentUser={this.state.currentUser}   />
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/formingreso" component={FormIngreso} />
+      </Switch>
+      
+      
+ 
+      
     </div>
   );
+}  
 }
 
 export default App;
